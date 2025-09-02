@@ -1,10 +1,28 @@
 {
-  "titulo": "Reglas del Torneo",
+  "titulo": "📜 Reglamento Oficial del Torneo Aníbal Rata Coluda 🐭",
   "contenido": [
-    "Cada partido ganado suma 3 puntos.",
-    "El empate suma 1 punto.",
-    "La asistencia influye en la reputación.",
-    "Las bajas afectan el ranking.",
-    "Solo jugadores aprobados por el organizador pueden participar."
+    "🔹 Artículo 1 — Formato de Competencia",
+    "El torneo se desarrollará bajo la modalidad todos contra todos, enfrentando a todos los equipos inscriptos.",
+    "Los equipos serán armados por sorteo, garantizando imparcialidad y variedad.",
+    
+    "🔹 Artículo 2 — Sistema de Puntaje",
+    "Victoria: 3 puntos",
+    "Empate: 1 punto",
+    "Derrota: 0 puntos",
+    "Gol de pecho: 2 puntos",
+    "Suplente: 1 punto (solo si participa en cancha)",
+    "Bajarse sin aviso: -3 puntos",
+    "Los goles de pecho serán válidos únicamente si se ejecutan de forma clara y sin discusión.",
+    
+    "🔹 Artículo 3 — Criterios de Clasificación",
+    "La tabla se ordenará por puntos totales acumulados.",
+    "En caso de empate entre dos o más equipos:",
+    "1. Menor cantidad de abandonos registrados",
+    "2. Mayor cantidad de partidos ganados",
+    "3. Piedra, papel o tijera al mejor de tres entre capitanes involucrados",
+    
+    "🔹 Artículo 4 — Disposiciones Finales",
+    "Este reglamento podrá ser ajustado por consenso del grupo organizador.",
+    "Toda modificación deberá preservar el espíritu competitivo, el humor característico del torneo y el respeto entre participantes."
   ]
 }

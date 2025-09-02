@@ -1,0 +1,9 @@
+<script>
+  const root = document.documentElement;
+  const modoGuardado = localStorage.getItem('modo');
+  if (modoGuardado === 'claro') {
+    root.classList.remove('dark-mode');
+  } else {
+    root.classList.add('dark-mode');
+  }
+</script>

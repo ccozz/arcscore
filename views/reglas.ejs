@@ -11,12 +11,87 @@
   <%- include('partials/navbar') %>
 
   <main class="container mt-4">
-    <h1 class="text-center mb-4"><%= reglas.titulo %></h1>
-    <ul class="list-group">
-      <% reglas.contenido.forEach((linea) => { %>
-        <li class="list-group-item"><%= linea %></li>
-      <% }) %>
-    </ul>
+    <h1 class="text-center mb-4" id="titulo-reglamento">📜 Reglamento Oficial del Torneo Aníbal Rata Coluda 🐭</h1>
+
+    <div class="accordion" id="reglamentoAccordion">
+
+        <% const articulos = [
+        {
+            titulo: "Artículo 1 — Formato de Competencia",
+            contenido: [
+            "El torneo se desarrollará bajo la modalidad todos contra todos.",
+            "Los equipos serán armados por sorteo, garantizando imparcialidad y variedad."
+            ]
+        },
+        {
+            titulo: "Artículo 2 — Sistema de Puntaje",
+            contenido: [
+            "Victoria: 3 puntos",
+            "Empate: 1 punto",
+            "Derrota: 0 puntos",
+            "Gol de pecho: 2 puntos",
+            "Suplente: 1 punto (solo si participa en cancha)",
+            "Bajarse sin aviso: -3 puntos",
+            "Los goles de pecho serán válidos únicamente si se ejecutan de forma clara y sin discusión."
+            ]
+        },
+        {
+            titulo: "Artículo 3 — Criterios de Clasificación",
+            contenido: [
+            "La tabla se ordenará por puntos totales acumulados.",
+            "En caso de empate entre dos o más equipos:",
+            "1. Menor cantidad de abandonos registrados",
+            "2. Mayor cantidad de partidos ganados",
+            "3. Piedra, papel o tijera al mejor de tres entre capitanes involucrados"
+            ]
+        },
+        {
+            titulo: "Artículo 4 — Disposiciones Finales",
+            contenido: [
+            "Este reglamento podrá ser ajustado por consenso del grupo organizador.",
+            "Toda modificación deberá preservar el espíritu competitivo, el humor característico del torneo y el respeto entre participantes."
+            ]
+        }
+        ]; %>
+
+        <% articulos.forEach((articulo, index) => { %>
+        <div class="accordion-item reglamento-item">
+            <h2 class="accordion-header" id="heading<%= index %>">
+            <button class="accordion-button collapsed reglamento-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+                <%= articulo.titulo %>
+            </button>
+            </h2>
+            <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#reglamentoAccordion">
+            <div class="accordion-body reglamento-body">
+                <% articulo.contenido.forEach((linea) => { %>
+                <p><%= linea %></p>
+                <% }) %>
+            </div>
+            </div>
+        </div>
+        <% }) %>
+
+    </div>
   </main>
+
+  <script>
+    const root = document.documentElement;
+    const modoGuardado = localStorage.getItem('modo');
+
+    if (modoGuardado === 'claro') {
+        root.classList.remove('dark-mode');
+        document.querySelector('#titulo-reglamento').classList.add('text-dark');
+        document.querySelectorAll('.reglamento-item').forEach(el => el.classList.remove('bg-dark', 'text-light'));
+        document.querySelectorAll('.reglamento-btn').forEach(el => el.classList.remove('bg-dark', 'text-light'));
+        document.querySelectorAll('.reglamento-body').forEach(el => el.classList.remove('text-light'));
+    } else {
+        root.classList.add('dark-mode');
+        document.querySelector('#titulo-reglamento').classList.add('text-light');
+        document.querySelectorAll('.reglamento-item').forEach(el => el.classList.add('bg-dark', 'text-light'));
+        document.querySelectorAll('.reglamento-btn').forEach(el => el.classList.add('bg-dark', 'text-light'));
+        document.querySelectorAll('.reglamento-body').forEach(el => el.classList.add('text-light'));
+    }
+  </script>
+
 </body>
 </html>

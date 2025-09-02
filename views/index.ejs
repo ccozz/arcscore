@@ -26,23 +26,28 @@
 
   <script>
     const toggle = document.getElementById('modoToggle');
-    const body = document.body;
+    const root = document.documentElement;
 
-    // Activar modo oscuro por defecto
-    body.classList.add('dark-mode');
-    toggle.innerHTML = '🌙 Modo claro';
+    // Leer preferencia guardada
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado === 'claro') {
+      root.classList.remove('dark-mode');
+      toggle.innerHTML = '🌞 Modo oscuro';
+      toggle.classList.remove('btn-outline-light');
+      toggle.classList.add('btn-outline-dark');
+    } else {
+      root.classList.add('dark-mode');
+      toggle.innerHTML = '🌙 Modo claro';
+      toggle.classList.add('btn-outline-light');
+      toggle.classList.remove('btn-outline-dark');
+    }
 
     toggle.addEventListener('click', () => {
-      body.classList.toggle('dark-mode');
+      root.classList.toggle('dark-mode');
+      const esOscuro = root.classList.contains('dark-mode');
+      localStorage.setItem('modo', esOscuro ? 'oscuro' : 'claro');
 
-      // Cambiar ícono y texto
-      if (body.classList.contains('dark-mode')) {
-        toggle.innerHTML = '🌙 Modo claro';
-      } else {
-        toggle.innerHTML = '🌞 Modo oscuro';
-      }
-
-      // Cambiar clase del botón
+      toggle.innerHTML = esOscuro ? '🌙 Modo claro' : '🌞 Modo oscuro';
       toggle.classList.toggle('btn-outline-light');
       toggle.classList.toggle('btn-outline-dark');
     });
