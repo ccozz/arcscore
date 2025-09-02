@@ -1,0 +1,14 @@
+tr.podio-oro td {
+  background-color: rgba(255, 215, 0, 0.5) !important; /* Oro suave */
+  color: #333 !important;
+}
+
+tr.podio-plata td {
+  background-color: rgba(192, 192, 192, 0.5) !important; /* Plata suave */
+  color: #333 !important;
+}
+
+tr.podio-bronce td {
+  background-color: rgba(205, 127, 50, 0.5) !important; /* Bronce suave */
+  color: #333 !important;
+}

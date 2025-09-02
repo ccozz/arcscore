@@ -1,0 +1,10 @@
+{
+  "titulo": "Reglas del Torneo",
+  "contenido": [
+    "Cada partido ganado suma 3 puntos.",
+    "El empate suma 1 punto.",
+    "La asistencia influye en la reputación.",
+    "Las bajas afectan el ranking.",
+    "Solo jugadores aprobados por el organizador pueden participar."
+  ]
+}
