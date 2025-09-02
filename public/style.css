@@ -1,3 +1,26 @@
+body.dark-mode {
+  background-color: #121212;
+  color: #e0e0e0;
+}
+
+body.dark-mode a,
+body.dark-mode strong,
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode p {
+  color: #f5f5f5;
+}
+
+body.dark-mode .btn-outline-dark {
+  border-color: #f5f5f5;
+  color: #f5f5f5;
+}
+
+body.dark-mode .btn-outline-dark:hover {
+  background-color: #f5f5f5;
+  color: #121212;
+}
+
 tr.podio-oro td {
   background-color: rgba(255, 215, 0, 0.5) !important; /* Oro suave */
   color: #333 !important;
