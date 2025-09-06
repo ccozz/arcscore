@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Historial de Partidos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="container mt-5">
+    <h1 class="mb-4 text-center">📅 Historial de Partidos</h1>
+
+    <% if (eventos.length === 0) { %>
+      <p class="text-center">Aún no se registraron partidos.</p>
+    <% } else { %>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>Fecha</th>
+              <th>Equipo A</th>
+              <th>Equipo B</th>
+              <th>Pechera</th>
+              <th>Ganador</th>
+              <th>Bajas</th>
+              <th>Suplentes</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% eventos.forEach(e => { %>
+              <tr>
+                <td>
+                  <% 
+                    const fecha = new Date(e.fecha);
+                    const dia = String(fecha.getDate()).padStart(2, '0');
+                    const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+                    const anio = fecha.getFullYear();
+                  %>
+                  <%= `${dia}/${mes}/${anio}` %>
+                </td>
+                <td><%= [...e.equipoA].sort().join(", ") %></td>
+                <td><%= [...e.equipoB].sort().join(", ") %></td>
+                <td><%= e.pechera === 'A' ? 'Equipo A' : 'Equipo B' %></td>
+                <td><%= e.ganador === 'A' ? 'Equipo A' : 'Equipo B' %></td>
+                <td><%= (e.bajas || []).sort().join(", ") || '-' %></td>
+                <td><%= (e.suplentes || []).sort().join(", ") || '-' %></td>
+                <td>
+                  <a href="/editar/<%= e.id %>" class="btn btn-sm btn-outline-warning">Editar</a>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    <% } %>
+  </main>
+
+  <!-- Bootstrap JS bundle (incluye Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <!-- Modo oscuro desde localStorage -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const root = document.documentElement;
+      const modoGuardado = localStorage.getItem('modo');
+      if (modoGuardado === 'claro') {
+        root.classList.remove('dark-mode');
+      } else {
+        root.classList.add('dark-mode');
+      }
+
+      // Fix menú hamburguesa en mobile
+      const toggler = document.querySelector('.navbar-toggler');
+      const menu = document.getElementById('navbarARC');
+      if (toggler && menu) {
+        toggler.addEventListener('click', () => {
+          menu.classList.toggle('show');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

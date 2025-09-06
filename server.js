@@ -47,6 +47,23 @@ app.get('/registrar', (req, res) => {
   res.render('registrar', { jugadores });
 });
 
+app.get('/historial', (req, res) => {
+  const eventosDir = path.join(__dirname, 'data', 'eventos');
+  const archivos = fs.readdirSync(eventosDir);
+
+  const eventos = archivos
+    .filter(archivo => archivo.endsWith('.json'))
+    .map(archivo => {
+      const contenido = fs.readFileSync(path.join(eventosDir, archivo), 'utf8');
+      const evento = JSON.parse(contenido);
+      evento.id = archivo.replace('.json', '');
+      return evento;
+    })
+    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+
+  res.render('historial', { eventos });
+});
+
 app.post('/registrar', (req, res) => {
   let jugadores = cargarJugadores();
   const jugadoresMap = {};
