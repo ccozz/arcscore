@@ -1,3 +1,4 @@
+/* 🌙 Modo oscuro base */
 .dark-mode body {
   background-color: #121212;
   color: #e0e0e0;
@@ -7,35 +8,43 @@
 .dark-mode strong,
 .dark-mode h1,
 .dark-mode h2,
-.dark-mode p {
+.dark-mode p,
+.dark-mode label {
   color: #f5f5f5;
 }
 
+/* 🌚 Elementos Bootstrap */
 .dark-mode .btn-outline-dark {
   border-color: #f5f5f5;
   color: #f5f5f5;
 }
-
 .dark-mode .btn-outline-dark:hover {
   background-color: #f5f5f5;
   color: #121212;
 }
 
+.dark-mode .btn-primary {
+  background-color: #2196F3;
+  border-color: #2196F3;
+}
+.dark-mode .btn-primary:hover {
+  background-color: #0d8bf2;
+  border-color: #0d8bf2;
+}
+
+/* 🌟 Podio en ranking */
 tr.podio-oro td {
-  background-color: rgba(255, 215, 0, 0.5) !important; /* Oro suave */
+  background-color: rgba(255, 215, 0, 0.5) !important;
   color: #333 !important;
 }
-
 tr.podio-plata td {
-  background-color: rgba(192, 192, 192, 0.5) !important; /* Plata suave */
+  background-color: rgba(192, 192, 192, 0.5) !important;
   color: #333 !important;
 }
-
 tr.podio-bronce td {
-  background-color: rgba(205, 127, 50, 0.5) !important; /* Bronce suave */
+  background-color: rgba(205, 127, 50, 0.5) !important;
   color: #333 !important;
 }
-
 .dark-mode tr.podio-oro td,
 .dark-mode tr.podio-plata td,
 .dark-mode tr.podio-bronce td {
@@ -43,98 +52,32 @@ tr.podio-bronce td {
   color: #ffffff !important;
 }
 
-/* Cards */
+/* 🃏 Cards */
 .dark-mode .card {
   background-color: #1e1e1e;
   color: #f5f5f5;
   border-color: #333;
 }
 
-/* Botones */
-.dark-mode .btn {
-  color: #f5f5f5;
-  border-color: #f5f5f5;
-}
-
-.dark-mode .btn:hover {
-  background-color: #f5f5f5;
-  color: #121212;
-}
-
-/* Encabezados y textos */
-.dark-mode h1,
-.dark-mode h2,
-.dark-mode h3,
-.dark-mode p {
-  color: #f5f5f5;
-}
-
-/* 🟤 Tablas */
-.dark-mode .table {
-  background-color: transparent;
-  color: #f5f5f5;
-}
-
-.dark-mode .table-dark {
-  background-color: #1f1f1f;
-  color: #f5f5f5;
-}
-
-.dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-/* 🟣 Cards */
-.dark-mode .card {
-  background-color: #1e1e1e;
-  color: #f5f5f5;
-  border-color: #333;
-}
-
-/* 🔵 List groups */
+/* 📋 List groups */
 .dark-mode .list-group-item {
   background-color: #1e1e1e;
   color: #f5f5f5;
   border-color: #333;
 }
 
-/* 🟢 Encabezados y textos */
-.dark-mode h1,
-.dark-mode h2,
-.dark-mode h3,
-.dark-mode p,
-.dark-mode th,
-.dark-mode td {
-  color: #f5f5f5;
-}
-
-/* 🟠 Botones */
-.dark-mode .btn {
-  color: #f5f5f5;
-  border-color: #f5f5f5;
-}
-
-.dark-mode .btn:hover {
-  background-color: #f5f5f5;
-  color: #121212;
-}
-
-/* 🏆 Tabla en modo oscuro */
+/* 📊 Tablas */
 .dark-mode .table {
-  background-color: transparent !important;
-  color: #f5f5f5 !important;
+  background-color: transparent;
+  color: #f5f5f5;
 }
-
 .dark-mode .table-dark {
-  background-color: #1f1f1f !important;
-  color: #f5f5f5 !important;
+  background-color: #1f1f1f;
+  color: #f5f5f5;
 }
-
 .dark-mode .table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.05);
 }
-
-/* 🧱 Encabezados y celdas */
 .dark-mode th,
 .dark-mode td {
   background-color: transparent !important;
@@ -142,13 +85,50 @@ tr.podio-bronce td {
   border-color: #444 !important;
 }
 
+/* 🧩 Selects */
 .dark-mode select.form-select {
   background-color: #1e1e1e;
   color: #f5f5f5;
   border: 1px solid #555;
 }
-
 .dark-mode select.form-select option {
   background-color: #1e1e1e;
   color: #f5f5f5;
+}
+
+/* 📆 Input date */
+.dark-mode input[type="date"] {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+/* ✍️ Input de texto (modal, etc) */
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
+.dark-mode input[type="email"],
+.dark-mode input[type="password"] {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+/* 🛑 Modal Bootstrap */
+.dark-mode .modal-content {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #444;
+}
+.dark-mode .modal-header,
+.dark-mode .modal-footer {
+  border-color: #333;
+}
+
+/* 🪟 Navbar */
+.dark-mode .navbar-dark .navbar-nav .nav-link {
+  color: #ccc;
+}
+.dark-mode .navbar-dark .navbar-nav .nav-link.active,
+.dark-mode .navbar-dark .navbar-nav .nav-link:hover {
+  color: #fff;
 }

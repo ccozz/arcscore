@@ -13,6 +13,15 @@
     <h1 class="mb-4 text-center">Registrar Partido</h1>
 
     <form action="/registrar" method="POST">
+      <!-- FECHA -->
+      <div class="mb-4">
+        <h4>Fecha del partido (miércoles)</h4>
+        <input type="date" class="form-control" name="fecha" id="fechaPartido" required>
+        <div class="form-text text-danger" id="errorFecha" style="display: none;">
+          Solo se pueden seleccionar días miércoles.
+        </div>
+      </div>
+
       <div class="row">
         <!-- EQUIPO A -->
         <div class="col-md-6">
@@ -47,19 +56,6 @@
         </div>
       </div>
 
-      <!-- GANADOR -->
-      <div class="mt-4">
-        <h4>Resultado del partido</h4>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="ganador" value="A" required>
-          <label class="form-check-label">Ganó equipo A</label>
-        </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="ganador" value="B" required>
-          <label class="form-check-label">Ganó equipo B</label>
-        </div>
-      </div>
-
       <!-- GOL DE PECHERA -->
       <div class="mt-4">
         <h4>Gol de pechera</h4>
@@ -70,6 +66,19 @@
         <div class="form-check">
           <input class="form-check-input" type="radio" name="pechera" value="B" required>
           <label class="form-check-label">Equipo B</label>
+        </div>
+      </div>
+
+      <!-- GANADOR -->
+      <div class="mt-4">
+        <h4>Resultado del partido</h4>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="ganador" value="A" required>
+          <label class="form-check-label">Ganó equipo A</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="ganador" value="B" required>
+          <label class="form-check-label">Ganó equipo B</label>
         </div>
       </div>
 
@@ -106,71 +115,148 @@
       </div>
 
       <!-- NUEVO JUGADOR -->
-      <div class="mt-4" id="nuevoJugadorContainer" style="display: none;">
-        <h4>Nuevo jugador</h4>
-        <input type="text" name="nuevoJugador" class="form-control" placeholder="Nombre del nuevo jugador">
-      </div>
+      <input type="hidden" name="nuevoJugador" id="nuevoJugadorHidden">
 
-      <!-- BOTÓN -->
       <div class="mt-5 text-center">
         <button type="submit" class="btn btn-primary">Registrar Partido</button>
       </div>
     </form>
   </main>
 
+  <!-- MODAL nuevo jugador -->
+  <div class="modal fade" id="modalNuevoJugador" tabindex="-1" aria-labelledby="modalNuevoJugadorLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content bg-dark text-white">
+        <div class="modal-header">
+          <h5 class="modal-title">Agregar nuevo jugador</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <input type="text" class="form-control" id="inputNuevoJugador" placeholder="Nombre del jugador">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-primary" id="btnConfirmarNuevoJugador">Agregar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
   <!-- DARK MODE -->
   <script>
-    const root = document.documentElement;
-    const modoGuardado = localStorage.getItem('modo');
+  const root = document.documentElement;
+  const modoGuardado = localStorage.getItem('modo');
 
-    if (modoGuardado === 'claro') {
-        root.classList.remove('dark-mode');
-    } else {
-        root.classList.add('dark-mode');
-    }
+  if (modoGuardado === 'claro') {
+    root.classList.remove('dark-mode');
+  } else {
+    root.classList.add('dark-mode');
+  }
   </script>
 
-  <!-- AGREGAR A LISTAS -->
+  <!-- VALIDAR FECHA (solo miércoles) -->
   <script>
-    const listas = {
-      baja: [],
-      suplente: []
-    };
+    const inputFecha = document.getElementById('fechaPartido');
+    const errorFecha = document.getElementById('errorFecha');
+    const form = document.querySelector('form');
 
+    function esMiercoles(fechaStr) {
+      const partes = fechaStr.split("-");
+      if (partes.length !== 3) return false;
+
+      const anio = parseInt(partes[0], 10);
+      const mes = parseInt(partes[1], 10) - 1; // JavaScript usa 0-11 para los meses
+      const dia = parseInt(partes[2], 10);
+
+      const fecha = new Date(anio, mes, dia);
+      return fecha.getDay() === 3; // 3 = miércoles
+    }
+
+    inputFecha.addEventListener('change', () => {
+      const esValida = esMiercoles(inputFecha.value);
+      inputFecha.setCustomValidity(esValida ? '' : 'Solo se permiten miércoles');
+      errorFecha.style.display = esValida ? 'none' : 'block';
+    });
+
+    form.addEventListener('submit', (e) => {
+      const esValida = esMiercoles(inputFecha.value);
+      if (!esValida) {
+        e.preventDefault();
+        inputFecha.setCustomValidity('Solo se permiten miércoles');
+        inputFecha.reportValidity();
+        errorFecha.style.display = 'block';
+      } else {
+        inputFecha.setCustomValidity('');
+        errorFecha.style.display = 'none';
+      }
+    });
+  </script>
+
+  <script>
+    // Validación jugadores únicos
+    const selects = document.querySelectorAll('.jugador-select');
+    function jugadoresElegidos(exclude = null) {
+      const nombres = [];
+      selects.forEach(s => {
+        if (s !== exclude && s.value && s.value !== "__nuevo__") nombres.push(s.value);
+      });
+      return nombres;
+    }
+
+    selects.forEach(select => {
+      select.addEventListener('change', e => {
+        if (e.target.value === '__nuevo__') {
+          selectActivo = e.target;
+          document.getElementById('inputNuevoJugador').value = '';
+          new bootstrap.Modal(document.getElementById('modalNuevoJugador')).show();
+        } else {
+          if (jugadoresElegidos(select).includes(select.value)) {
+            alert("Ese jugador ya fue elegido.");
+            select.value = "";
+          }
+        }
+      });
+    });
+
+    // Modal nuevo jugador
+    let selectActivo = null;
+    document.getElementById('btnConfirmarNuevoJugador').addEventListener('click', () => {
+      const nuevoNombre = document.getElementById('inputNuevoJugador').value.trim();
+      if (!nuevoNombre || !selectActivo) return;
+
+      const existe = Array.from(selectActivo.options).some(opt => opt.value === nuevoNombre);
+      if (!existe) {
+        const option = document.createElement('option');
+        option.value = nuevoNombre;
+        option.textContent = nuevoNombre;
+        option.selected = true;
+        selectActivo.appendChild(option);
+      } else {
+        selectActivo.value = nuevoNombre;
+      }
+      document.getElementById('nuevoJugadorHidden').value = nuevoNombre;
+      bootstrap.Modal.getInstance(document.getElementById('modalNuevoJugador')).hide();
+    });
+
+    // Bajas y suplentes
+    const listas = { baja: [], suplente: [] };
     function agregarJugador(tipo) {
       const select = document.getElementById(tipo + 'Select');
       const nombre = select.value;
       if (!nombre || listas[tipo].includes(nombre)) return;
 
       listas[tipo].push(nombre);
-
       const container = document.getElementById(tipo + 'sContainer');
       const badge = document.createElement('span');
       badge.classList.add('badge', 'bg-secondary', 'me-1', 'mb-1');
       badge.textContent = nombre;
       container.appendChild(badge);
-
       document.getElementById(tipo + 'sInput').value = listas[tipo].join(',');
       select.value = '';
     }
   </script>
 
-  <!-- DETECCIÓN DE "AGREGAR NUEVO JUGADOR" -->
-  <script>
-    const selects = document.querySelectorAll('.jugador-select');
-    selects.forEach(select => {
-      select.addEventListener('change', (e) => {
-        if (e.target.value === '__nuevo__') {
-          document.getElementById('nuevoJugadorContainer').style.display = 'block';
-        }
-      });
-    });
-  </script>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap JS bundle (incluye Popper) -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
-
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+{
+  "fecha": "2025-09-06T14:46:35.091Z",
+  "equipoA": [
+    "Franco",
+    "Rovle",
+    "Choncho",
+    "Borra",
+    "Lucho"
+  ],
+  "equipoB": [
+    "Cri",
+    "Ima",
+    "Pocho",
+    "Nico",
+    "H"
+  ],
+  "ganador": "B",
+  "pechera": "B",
+  "bajas": [],
+  "suplentes": []
+}
