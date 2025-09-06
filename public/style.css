@@ -141,3 +141,14 @@ tr.podio-bronce td {
   color: #f5f5f5 !important;
   border-color: #444 !important;
 }
+
+.dark-mode select.form-select {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+  border: 1px solid #555;
+}
+
+.dark-mode select.form-select option {
+  background-color: #1e1e1e;
+  color: #f5f5f5;
+}

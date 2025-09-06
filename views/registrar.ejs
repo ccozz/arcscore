@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registrar Partido</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="container mt-5">
+    <h1 class="mb-4 text-center">Registrar Partido</h1>
+
+    <form action="/registrar" method="POST">
+      <div class="row">
+        <!-- EQUIPO A -->
+        <div class="col-md-6">
+          <h4>Equipo A</h4>
+          <% for (let i = 0; i < 5; i++) { %>
+            <div class="mb-2">
+              <select class="form-select jugador-select" name="equipoA[]" required>
+                <option value="">Seleccionar jugador</option>
+                <% jugadores.forEach(j => { %>
+                  <option value="<%= j.nombre %>"><%= j.nombre %></option>
+                <% }) %>
+                <option value="__nuevo__">➕ Agregar nuevo jugador</option>
+              </select>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- EQUIPO B -->
+        <div class="col-md-6">
+          <h4>Equipo B</h4>
+          <% for (let i = 0; i < 5; i++) { %>
+            <div class="mb-2">
+              <select class="form-select jugador-select" name="equipoB[]" required>
+                <option value="">Seleccionar jugador</option>
+                <% jugadores.forEach(j => { %>
+                  <option value="<%= j.nombre %>"><%= j.nombre %></option>
+                <% }) %>
+                <option value="__nuevo__">➕ Agregar nuevo jugador</option>
+              </select>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- GANADOR -->
+      <div class="mt-4">
+        <h4>Resultado del partido</h4>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="ganador" value="A" required>
+          <label class="form-check-label">Ganó equipo A</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="ganador" value="B" required>
+          <label class="form-check-label">Ganó equipo B</label>
+        </div>
+      </div>
+
+      <!-- GOL DE PECHERA -->
+      <div class="mt-4">
+        <h4>Gol de pechera</h4>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pechera" value="A" required>
+          <label class="form-check-label">Equipo A</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pechera" value="B" required>
+          <label class="form-check-label">Equipo B</label>
+        </div>
+      </div>
+
+      <!-- BAJAS -->
+      <div class="mt-4">
+        <h4>Jugadores que se bajaron</h4>
+        <div id="bajasContainer" class="mb-2"></div>
+        <div class="input-group">
+          <select id="bajaSelect" class="form-select">
+            <option value="">Seleccionar jugador</option>
+            <% jugadores.forEach(j => { %>
+              <option value="<%= j.nombre %>"><%= j.nombre %></option>
+            <% }) %>
+          </select>
+          <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('baja')">+</button>
+        </div>
+        <input type="hidden" name="bajas" id="bajasInput">
+      </div>
+
+      <!-- SUPLENTES -->
+      <div class="mt-4">
+        <h4>Suplentes que ingresaron</h4>
+        <div id="suplentesContainer" class="mb-2"></div>
+        <div class="input-group">
+          <select id="suplenteSelect" class="form-select">
+            <option value="">Seleccionar jugador</option>
+            <% jugadores.forEach(j => { %>
+              <option value="<%= j.nombre %>"><%= j.nombre %></option>
+            <% }) %>
+          </select>
+          <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('suplente')">+</button>
+        </div>
+        <input type="hidden" name="suplentes" id="suplentesInput">
+      </div>
+
+      <!-- NUEVO JUGADOR -->
+      <div class="mt-4" id="nuevoJugadorContainer" style="display: none;">
+        <h4>Nuevo jugador</h4>
+        <input type="text" name="nuevoJugador" class="form-control" placeholder="Nombre del nuevo jugador">
+      </div>
+
+      <!-- BOTÓN -->
+      <div class="mt-5 text-center">
+        <button type="submit" class="btn btn-primary">Registrar Partido</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- DARK MODE -->
+  <script>
+    const root = document.documentElement;
+    const modoGuardado = localStorage.getItem('modo');
+
+    if (modoGuardado === 'claro') {
+        root.classList.remove('dark-mode');
+    } else {
+        root.classList.add('dark-mode');
+    }
+  </script>
+
+  <!-- AGREGAR A LISTAS -->
+  <script>
+    const listas = {
+      baja: [],
+      suplente: []
+    };
+
+    function agregarJugador(tipo) {
+      const select = document.getElementById(tipo + 'Select');
+      const nombre = select.value;
+      if (!nombre || listas[tipo].includes(nombre)) return;
+
+      listas[tipo].push(nombre);
+
+      const container = document.getElementById(tipo + 'sContainer');
+      const badge = document.createElement('span');
+      badge.classList.add('badge', 'bg-secondary', 'me-1', 'mb-1');
+      badge.textContent = nombre;
+      container.appendChild(badge);
+
+      document.getElementById(tipo + 'sInput').value = listas[tipo].join(',');
+      select.value = '';
+    }
+  </script>
+
+  <!-- DETECCIÓN DE "AGREGAR NUEVO JUGADOR" -->
+  <script>
+    const selects = document.querySelectorAll('.jugador-select');
+    selects.forEach(select => {
+      select.addEventListener('change', (e) => {
+        if (e.target.value === '__nuevo__') {
+          document.getElementById('nuevoJugadorContainer').style.display = 'block';
+        }
+      });
+    });
+  </script>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap JS bundle (incluye Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+
+</body>
+</html>
