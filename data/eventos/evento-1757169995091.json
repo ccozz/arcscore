@@ -1,5 +1,5 @@
 {
-  "fecha": "2025-09-06T14:46:35.091Z",
+  "fecha": "2025-08-13",
   "equipoA": [
     "Franco",
     "Rovle",
@@ -10,11 +10,11 @@
   "equipoB": [
     "Cri",
     "Ima",
-    "Pocho",
+    "Osval",
     "Nico",
     "H"
   ],
-  "ganador": "B",
+  "ganador": "A",
   "pechera": "B",
   "bajas": [],
   "suplentes": []

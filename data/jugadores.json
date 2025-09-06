@@ -2,24 +2,24 @@
   {
     "nombre": "Cri",
     "partidos": 1,
-    "ganados": 1,
+    "ganados": 0,
     "empatados": 0,
-    "perdidos": 0,
+    "perdidos": 1,
     "asistencia": 1,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 4
+    "puntos": 1
   },
   {
     "nombre": "Borra",
     "partidos": 2,
-    "ganados": 1,
+    "ganados": 2,
     "empatados": 0,
-    "perdidos": 1,
+    "perdidos": 0,
     "asistencia": 2,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 3
+    "puntos": 6
   },
   {
     "nombre": "Luqui",
@@ -35,13 +35,13 @@
   {
     "nombre": "H",
     "partidos": 2,
-    "ganados": 1,
+    "ganados": 0,
     "empatados": 0,
-    "perdidos": 1,
+    "perdidos": 2,
     "asistencia": 2,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 5
+    "puntos": 2
   },
   {
     "nombre": "Cefe",
@@ -57,13 +57,13 @@
   {
     "nombre": "Choncho",
     "partidos": 1,
-    "ganados": 0,
+    "ganados": 1,
     "empatados": 0,
-    "perdidos": 1,
+    "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 0
+    "puntos": 3
   },
   {
     "nombre": "Geri",
@@ -79,13 +79,13 @@
   {
     "nombre": "Ima",
     "partidos": 2,
-    "ganados": 2,
+    "ganados": 1,
     "empatados": 0,
-    "perdidos": 0,
+    "perdidos": 1,
     "asistencia": 2,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 7
+    "puntos": 4
   },
   {
     "nombre": "Laucha",
@@ -100,14 +100,14 @@
   },
   {
     "nombre": "Pocho",
-    "partidos": 2,
-    "ganados": 2,
+    "partidos": 1,
+    "ganados": 1,
     "empatados": 0,
     "perdidos": 0,
-    "asistencia": 2,
+    "asistencia": 1,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 7
+    "puntos": 3
   },
   {
     "nombre": "Lobo",
@@ -123,13 +123,13 @@
   {
     "nombre": "Lucho",
     "partidos": 1,
-    "ganados": 0,
+    "ganados": 1,
     "empatados": 0,
-    "perdidos": 1,
+    "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 0
+    "puntos": 3
   },
   {
     "nombre": "Marcos",
@@ -156,24 +156,24 @@
   {
     "nombre": "Nico",
     "partidos": 2,
+    "ganados": 0,
+    "empatados": 0,
+    "perdidos": 2,
+    "asistencia": 2,
+    "bajas": 0,
+    "reputacion": "Legendaria",
+    "puntos": 2
+  },
+  {
+    "nombre": "Osval",
+    "partidos": 2,
     "ganados": 1,
     "empatados": 0,
     "perdidos": 1,
     "asistencia": 2,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 5
-  },
-  {
-    "nombre": "Osval",
-    "partidos": 1,
-    "ganados": 1,
-    "empatados": 0,
-    "perdidos": 0,
-    "asistencia": 1,
-    "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 3
+    "puntos": 4
   },
   {
     "nombre": "Perro Loco",
@@ -200,13 +200,13 @@
   {
     "nombre": "Rovle",
     "partidos": 1,
-    "ganados": 0,
+    "ganados": 1,
     "empatados": 0,
-    "perdidos": 1,
+    "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 0
+    "puntos": 3
   },
   {
     "nombre": "Tin",
@@ -222,12 +222,12 @@
   {
     "nombre": "Franco",
     "partidos": 1,
-    "ganados": 0,
+    "ganados": 1,
     "empatados": 0,
-    "perdidos": 1,
+    "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
     "reputacion": "Legendaria",
-    "puntos": 0
+    "puntos": 3
   }
 ]

@@ -48,20 +48,114 @@ app.get('/registrar', (req, res) => {
 });
 
 app.get('/historial', (req, res) => {
-  const eventosDir = path.join(__dirname, 'data', 'eventos');
   const archivos = fs.readdirSync(eventosDir);
-
-  const eventos = archivos
-    .filter(archivo => archivo.endsWith('.json'))
-    .map(archivo => {
-      const contenido = fs.readFileSync(path.join(eventosDir, archivo), 'utf8');
-      const evento = JSON.parse(contenido);
-      evento.id = archivo.replace('.json', '');
+  const historial = archivos
+    .filter(nombre => nombre.endsWith('.json'))
+    .map(nombre => {
+      const evento = JSON.parse(fs.readFileSync(path.join(eventosDir, nombre), 'utf8'));
+      evento.id = nombre.replace('.json', '');
       return evento;
     })
-    .sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
+    .sort((a, b) => new Date(b.fecha) - new Date(a.fecha)); // orden descendente por fecha
 
-  res.render('historial', { eventos });
+  res.render('historial', { historial }); // <- ESTA LÍNEA ES LA CLAVE
+});
+
+// Ruta para obtener los datos de un evento específico (GET)
+app.get('/evento/:id', (req, res) => {
+  const eventoPath = path.join(eventosDir, `${req.params.id}.json`);
+  if (!fs.existsSync(eventoPath)) return res.status(404).send('Evento no encontrado');
+  const evento = JSON.parse(fs.readFileSync(eventoPath, 'utf8'));
+  const jugadores = cargarJugadores().sort((a, b) => a.nombre.localeCompare(b.nombre));
+  res.render('editar-evento', { evento, jugadores, id: req.params.id });
+});
+
+// Ruta para procesar la edición del evento (POST)
+app.post('/evento/:id', (req, res) => {
+  const eventoPath = path.join(eventosDir, `${req.params.id}.json`);
+  if (!fs.existsSync(eventoPath)) return res.status(404).send('Evento no encontrado');
+
+  const viejo = JSON.parse(fs.readFileSync(eventoPath, 'utf8'));
+  let jugadores = cargarJugadores();
+  const jugadoresMap = {};
+  jugadores.forEach(j => jugadoresMap[j.nombre] = j);
+
+  // Revertir impacto del evento anterior
+  const revertir = (nombre, campo, valor) => {
+    if (jugadoresMap[nombre]) jugadoresMap[nombre][campo] -= valor;
+  };
+
+  const todosAnteriores = [...viejo.equipoA, ...viejo.equipoB];
+  todosAnteriores.forEach(n => revertir(n, 'partidos', 1));
+  viejo.equipoA.forEach(n => {
+    if (viejo.ganador === 'A') revertir(n, 'ganados', 1), revertir(n, 'puntos', 3);
+    else if (viejo.ganador === 'B') revertir(n, 'perdidos', 1);
+    else revertir(n, 'empatados', 1);
+    if (viejo.pechera === 'A') revertir(n, 'puntos', 1);
+    revertir(n, 'asistencia', 1);
+  });
+  viejo.equipoB.forEach(n => {
+    if (viejo.ganador === 'B') revertir(n, 'ganados', 1), revertir(n, 'puntos', 3);
+    else if (viejo.ganador === 'A') revertir(n, 'perdidos', 1);
+    else revertir(n, 'empatados', 1);
+    if (viejo.pechera === 'B') revertir(n, 'puntos', 1);
+    revertir(n, 'asistencia', 1);
+  });
+  (viejo.bajas || []).forEach(n => {
+    revertir(n, 'bajas', 1);
+    revertir(n, 'puntos', -3);
+  });
+  (viejo.suplentes || []).forEach(n => {
+    revertir(n, 'asistencia', 1);
+    revertir(n, 'puntos', 1);
+  });
+
+  // Procesar nuevo evento
+  const fecha = req.body.fecha;
+  const equipoA = req.body.equipoA || [];
+  const equipoB = req.body.equipoB || [];
+  const ganador = req.body.ganador;
+  const pechera = req.body.pechera;
+  const bajas = req.body.bajas ? req.body.bajas.split(',') : [];
+  const suplentes = req.body.suplentes ? req.body.suplentes.split(',') : [];
+
+  const todos = [...equipoA, ...equipoB];
+  todos.forEach(n => jugadoresMap[n] && (jugadoresMap[n].partidos++, jugadoresMap[n].asistencia++));
+
+  equipoA.forEach(n => {
+    if (ganador === 'A') jugadoresMap[n].ganados++, jugadoresMap[n].puntos += 3;
+    else if (ganador === 'B') jugadoresMap[n].perdidos++;
+    else jugadoresMap[n].empatados++;
+    if (pechera === 'A') jugadoresMap[n].puntos += 1;
+  });
+  equipoB.forEach(n => {
+    if (ganador === 'B') jugadoresMap[n].ganados++, jugadoresMap[n].puntos += 3;
+    else if (ganador === 'A') jugadoresMap[n].perdidos++;
+    else jugadoresMap[n].empatados++;
+    if (pechera === 'B') jugadoresMap[n].puntos += 1;
+  });
+
+  bajas.forEach(n => {
+    jugadoresMap[n].bajas++;
+    jugadoresMap[n].puntos -= 3;
+  });
+
+  suplentes.forEach(n => {
+    jugadoresMap[n].asistencia++;
+    jugadoresMap[n].puntos += 1;
+  });
+
+  // Reputación
+  jugadores.forEach(j => {
+    j.reputacion = calcularReputacion(j);
+  });
+
+  // Guardar
+  fs.writeFileSync(jugadoresPath, JSON.stringify(jugadores, null, 2), 'utf8');
+  const nuevoEvento = { fecha, equipoA, equipoB, ganador, pechera, bajas, suplentes };
+  fs.writeFileSync(eventoPath, JSON.stringify(nuevoEvento, null, 2), 'utf8');
+
+  res.redirect('/historial');
 });
 
 app.post('/registrar', (req, res) => {

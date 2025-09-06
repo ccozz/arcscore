@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Evento</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <main class="container mt-5">
+    <h1 class="text-center mb-4">Editar Evento</h1>
+
+    <form action="/evento/<%= id %>" method="POST">
+      <!-- FECHA -->
+      <div class="mb-4">
+        <h4>Fecha (miércoles)</h4>
+        <input type="date" class="form-control" name="fecha" id="fechaPartido" value="<%= evento.fecha %>" required>
+        <div class="form-text text-danger" id="errorFecha" style="display: none;">
+          Solo se pueden seleccionar días miércoles.
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- EQUIPO A -->
+        <div class="col-md-6">
+          <h4>Equipo A</h4>
+          <% for (let i = 0; i < 5; i++) { %>
+            <div class="mb-2">
+              <select class="form-select jugador-select" name="equipoA[]" required>
+                <option value="">Seleccionar jugador</option>
+                <% jugadores.forEach(j => { %>
+                  <option value="<%= j.nombre %>" <%= evento.equipoA[i] === j.nombre ? 'selected' : '' %>><%= j.nombre %></option>
+                <% }) %>
+              </select>
+            </div>
+          <% } %>
+        </div>
+
+        <!-- EQUIPO B -->
+        <div class="col-md-6">
+          <h4>Equipo B</h4>
+          <% for (let i = 0; i < 5; i++) { %>
+            <div class="mb-2">
+              <select class="form-select jugador-select" name="equipoB[]" required>
+                <option value="">Seleccionar jugador</option>
+                <% jugadores.forEach(j => { %>
+                  <option value="<%= j.nombre %>" <%= evento.equipoB[i] === j.nombre ? 'selected' : '' %>><%= j.nombre %></option>
+                <% }) %>
+              </select>
+            </div>
+          <% } %>
+        </div>
+      </div>
+
+      <!-- PECHERA -->
+      <div class="mt-4">
+        <h4>Gol de pechera</h4>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pechera" value="A" <%= evento.pechera === 'A' ? 'checked' : '' %> required>
+          <label class="form-check-label">Equipo A</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="pechera" value="B" <%= evento.pechera === 'B' ? 'checked' : '' %> required>
+          <label class="form-check-label">Equipo B</label>
+        </div>
+      </div>
+
+      <!-- GANADOR -->
+      <div class="mt-4">
+        <h4>Resultado</h4>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="ganador" value="A" <%= evento.ganador === 'A' ? 'checked' : '' %> required>
+          <label class="form-check-label">Ganó equipo A</label>
+        </div>
+        <div class="form-check">
+          <input class="form-check-input" type="radio" name="ganador" value="B" <%= evento.ganador === 'B' ? 'checked' : '' %> required>
+          <label class="form-check-label">Ganó equipo B</label>
+        </div>
+      </div>
+
+      <!-- BAJAS -->
+      <div class="mt-4">
+        <h4>Jugadores que se bajaron</h4>
+        <div class="input-group mb-2">
+          <select id="bajaSelect" class="form-select">
+            <option value="">Seleccionar jugador</option>
+            <% jugadores.forEach(j => { %>
+              <option value="<%= j.nombre %>"><%= j.nombre %></option>
+            <% }) %>
+          </select>
+          <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('baja')">+</button>
+        </div>
+        <div id="bajasContainer">
+          <% (evento.bajas || []).forEach(nombre => { %>
+            <span class="badge bg-secondary me-1 mb-1"><%= nombre %></span>
+          <% }) %>
+        </div>
+        <input type="hidden" name="bajas" id="bajasInput" value="<%= (evento.bajas || []).join(',') %>">
+      </div>
+
+      <!-- SUPLENTES -->
+      <div class="mt-4">
+        <h4>Suplentes</h4>
+        <div class="input-group mb-2">
+          <select id="suplenteSelect" class="form-select">
+            <option value="">Seleccionar jugador</option>
+            <% jugadores.forEach(j => { %>
+              <option value="<%= j.nombre %>"><%= j.nombre %></option>
+            <% }) %>
+          </select>
+          <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('suplente')">+</button>
+        </div>
+        <div id="suplentesContainer">
+          <% (evento.suplentes || []).forEach(nombre => { %>
+            <span class="badge bg-secondary me-1 mb-1"><%= nombre %></span>
+          <% }) %>
+        </div>
+        <input type="hidden" name="suplentes" id="suplentesInput" value="<%= (evento.suplentes || []).join(',') %>">
+      </div>
+
+      <!-- BOTÓN -->
+      <div class="mt-5 text-center">
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Scripts comunes -->
+  <script>
+    // Modo oscuro
+    const root = document.documentElement;
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado === 'claro') root.classList.remove('dark-mode');
+    else root.classList.add('dark-mode');
+
+    // Validación miércoles
+    const inputFecha = document.getElementById('fechaPartido');
+    const errorFecha = document.getElementById('errorFecha');
+    const form = document.querySelector('form');
+
+    form.addEventListener('submit', e => {
+      const [y, m, d] = inputFecha.value.split('-');
+      const date = new Date(+y, m - 1, +d);
+      const isWed = date.getDay() === 3;
+      if (!isWed) {
+        e.preventDefault();
+        inputFecha.setCustomValidity('Solo miércoles');
+        inputFecha.reportValidity();
+        errorFecha.style.display = 'block';
+      } else {
+        inputFecha.setCustomValidity('');
+        errorFecha.style.display = 'none';
+      }
+    });
+
+    // Repetidos
+    const selects = document.querySelectorAll('.jugador-select');
+    function jugadoresSeleccionados(except) {
+      return [...selects].filter(s => s !== except).map(s => s.value);
+    }
+    selects.forEach(select => {
+      select.addEventListener('change', () => {
+        const val = select.value;
+        if (jugadoresSeleccionados(select).includes(val)) {
+          alert(`El jugador "${val}" ya fue seleccionado`);
+          select.value = '';
+        }
+      });
+    });
+
+    // Agregar a bajas/suplentes
+    const listas = {
+      baja: <%- JSON.stringify(evento.bajas || []) %>,
+      suplente: <%- JSON.stringify(evento.suplentes || []) %>
+    };
+
+    function agregarJugador(tipo) {
+      const select = document.getElementById(tipo + 'Select');
+      const container = document.getElementById(tipo + 'sContainer');
+      const input = document.getElementById(tipo + 'sInput');
+      const nombre = select.value;
+
+      if (!nombre || listas[tipo].includes(nombre)) return;
+
+      listas[tipo].push(nombre);
+      const span = document.createElement('span');
+      span.classList.add('badge', 'bg-secondary', 'me-1', 'mb-1');
+      span.textContent = nombre;
+      container.appendChild(span);
+
+      input.value = listas[tipo].join(',');
+      select.value = '';
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+</body>
+</html>
