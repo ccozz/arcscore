@@ -132,3 +132,13 @@ tr.podio-bronce td {
 .dark-mode .navbar-dark .navbar-nav .nav-link:hover {
   color: #fff;
 }
+
+.dark-mode .btn-outline-primary {
+  color: #90caf9;
+  border-color: #90caf9;
+}
+
+.dark-mode .btn-outline-primary:hover {
+  background-color: #90caf9;
+  color: #121212;
+}
