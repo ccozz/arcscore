@@ -108,6 +108,7 @@ app.post('/evento/:id', (req, res) => {
   (viejo.suplentes || []).forEach(n => {
     revertir(n, 'asistencia', 1);
     revertir(n, 'puntos', 1);
+    revertir(n, 'suplencias', 1);
   });
 
   // Procesar nuevo evento
@@ -143,6 +144,7 @@ app.post('/evento/:id', (req, res) => {
   suplentes.forEach(n => {
     jugadoresMap[n].asistencia++;
     jugadoresMap[n].puntos += 1;
+    jugadoresMap[n].suplencias = (jugadoresMap[n].suplencias || 0) + 1;
   });
 
   // Reputación
@@ -229,6 +231,7 @@ app.post('/registrar', (req, res) => {
     if (!j) return;
     j.asistencia++;
     j.puntos += 1;
+    j.suplencias = (j.suplencias || 0) + 1;
   });
 
   // REPUTACIÓN
@@ -248,15 +251,26 @@ app.post('/registrar', (req, res) => {
 
 // REPUTACIÓN
 function calcularReputacion(j) {
-  const total = j.partidos + j.bajas;
-  if (total === 0) return "Sin datos";
-  const asistencia = j.partidos / total;
-  const score = asistencia * 100 - j.bajas * 3;
-  if (score >= 90) return "Legendaria";
-  if (score >= 75) return "Alta";
-  if (score >= 50) return "Media";
-  if (score >= 25) return "Baja";
-  return "Chota";
+  const partidos = j.partidos || 0;
+  const ganados = j.ganados || 0;
+  const empatados = j.empatados || 0;
+  const suplencias = j.suplencias || 0; // Debés asegurarte de guardar esto
+  const bajas = j.bajas || 0;
+
+  const puntosBase = partidos * 1.5 + suplencias * 1;
+  const puntosResultado = ganados * 1 + empatados * 0.5;
+  const puntosBaja = bajas * 2;
+
+  const scoreTotal = puntosBase + puntosResultado - puntosBaja;
+  const totalEventos = partidos + suplencias + bajas;
+
+  if (totalEventos === 0) return "Sin datos";
+
+  const promedio = scoreTotal / totalEventos;
+
+  if (promedio >= 2.5) return "🌟 Élite";
+  if (promedio >= 1.5) return "🤝 Cumplidor";
+  return "⚓️ Ancla";
 }
 
 app.listen(3000, () => {

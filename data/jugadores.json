@@ -7,7 +7,7 @@
     "perdidos": 1,
     "asistencia": 1,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🤝 Cumplidor",
     "puntos": 1
   },
   {
@@ -18,7 +18,7 @@
     "perdidos": 0,
     "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🌟 Élite",
     "puntos": 6
   },
   {
@@ -40,7 +40,7 @@
     "perdidos": 2,
     "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🤝 Cumplidor",
     "puntos": 2
   },
   {
@@ -51,19 +51,19 @@
     "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🌟 Élite",
     "puntos": 3
   },
   {
     "nombre": "Choncho",
-    "partidos": 1,
-    "ganados": 1,
+    "partidos": 2,
+    "ganados": 2,
     "empatados": 0,
     "perdidos": 0,
-    "asistencia": 1,
+    "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 3
+    "reputacion": "🌟 Élite",
+    "puntos": 6
   },
   {
     "nombre": "Geri",
@@ -78,25 +78,25 @@
   },
   {
     "nombre": "Ima",
-    "partidos": 2,
+    "partidos": 3,
     "ganados": 1,
     "empatados": 0,
-    "perdidos": 1,
-    "asistencia": 2,
+    "perdidos": 2,
+    "asistencia": 3,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 4
+    "reputacion": "🤝 Cumplidor",
+    "puntos": 5
   },
   {
     "nombre": "Laucha",
-    "partidos": 0,
-    "ganados": 0,
+    "partidos": 1,
+    "ganados": 1,
     "empatados": 0,
     "perdidos": 0,
-    "asistencia": 0,
+    "asistencia": 1,
     "bajas": 0,
-    "reputacion": "Sin datos",
-    "puntos": 0
+    "reputacion": "🌟 Élite",
+    "puntos": 3
   },
   {
     "nombre": "Pocho",
@@ -106,7 +106,7 @@
     "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🌟 Élite",
     "puntos": 3
   },
   {
@@ -115,32 +115,33 @@
     "ganados": 0,
     "empatados": 0,
     "perdidos": 0,
-    "asistencia": 0,
+    "asistencia": 1,
     "bajas": 0,
-    "reputacion": "Sin datos",
-    "puntos": 0
+    "reputacion": "⚓️ Ancla",
+    "puntos": 1,
+    "suplencias": 1
   },
   {
     "nombre": "Lucho",
-    "partidos": 1,
+    "partidos": 2,
     "ganados": 1,
     "empatados": 0,
-    "perdidos": 0,
-    "asistencia": 1,
+    "perdidos": 1,
+    "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 3
+    "reputacion": "🤝 Cumplidor",
+    "puntos": 4
   },
   {
     "nombre": "Marcos",
-    "partidos": 1,
+    "partidos": 2,
     "ganados": 0,
     "empatados": 0,
-    "perdidos": 1,
-    "asistencia": 1,
+    "perdidos": 2,
+    "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 1
+    "reputacion": "🤝 Cumplidor",
+    "puntos": 2
   },
   {
     "nombre": "Maty",
@@ -155,14 +156,14 @@
   },
   {
     "nombre": "Nico",
-    "partidos": 2,
+    "partidos": 3,
     "ganados": 0,
     "empatados": 0,
-    "perdidos": 2,
-    "asistencia": 2,
+    "perdidos": 3,
+    "asistencia": 3,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 2
+    "reputacion": "🤝 Cumplidor",
+    "puntos": 3
   },
   {
     "nombre": "Osval",
@@ -172,52 +173,52 @@
     "perdidos": 1,
     "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🤝 Cumplidor",
     "puntos": 4
   },
   {
     "nombre": "Perro Loco",
-    "partidos": 0,
+    "partidos": 1,
     "ganados": 0,
     "empatados": 0,
-    "perdidos": 0,
-    "asistencia": 0,
-    "bajas": 0,
-    "reputacion": "Sin datos",
-    "puntos": 0
+    "perdidos": 1,
+    "asistencia": 1,
+    "bajas": 1,
+    "reputacion": "⚓️ Ancla",
+    "puntos": -2
   },
   {
     "nombre": "Rafa",
-    "partidos": 1,
-    "ganados": 0,
+    "partidos": 2,
+    "ganados": 1,
     "empatados": 0,
     "perdidos": 1,
-    "asistencia": 1,
+    "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 1
+    "reputacion": "🤝 Cumplidor",
+    "puntos": 4
   },
   {
     "nombre": "Rovle",
-    "partidos": 1,
-    "ganados": 1,
+    "partidos": 2,
+    "ganados": 2,
     "empatados": 0,
     "perdidos": 0,
-    "asistencia": 1,
+    "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 3
+    "reputacion": "🌟 Élite",
+    "puntos": 6
   },
   {
     "nombre": "Tin",
-    "partidos": 1,
-    "ganados": 0,
+    "partidos": 2,
+    "ganados": 1,
     "empatados": 0,
     "perdidos": 1,
-    "asistencia": 1,
+    "asistencia": 2,
     "bajas": 0,
-    "reputacion": "Legendaria",
-    "puntos": 1
+    "reputacion": "🤝 Cumplidor",
+    "puntos": 4
   },
   {
     "nombre": "Franco",
@@ -227,7 +228,7 @@
     "perdidos": 0,
     "asistencia": 1,
     "bajas": 0,
-    "reputacion": "Legendaria",
+    "reputacion": "🌟 Élite",
     "puntos": 3
   }
 ]

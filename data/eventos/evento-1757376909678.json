@@ -1,0 +1,25 @@
+{
+  "fecha": "2025-09-03",
+  "equipoA": [
+    "Nico",
+    "Perro Loco",
+    "Marcos",
+    "Ima",
+    "Lucho"
+  ],
+  "equipoB": [
+    "Choncho",
+    "Laucha",
+    "Tin",
+    "Rovle",
+    "Rafa"
+  ],
+  "ganador": "B",
+  "pechera": "A",
+  "bajas": [
+    "Perro Loco"
+  ],
+  "suplentes": [
+    "Lobo"
+  ]
+}
