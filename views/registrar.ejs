@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registrar Partido</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
@@ -10,120 +11,122 @@
   <%- include('partials/navbar') %>
 
   <main class="container mt-5">
-    <h1 class="mb-4 text-center">Registrar Partido</h1>
+    <div class="card shadow-sm p-4">
+      <h1 class="mb-4 text-center fs-4 fs-md-2">Registrar Partido</h1>
 
-    <form action="/registrar" method="POST">
-      <!-- FECHA -->
-      <div class="mb-4">
-        <h4>Fecha del partido (miércoles)</h4>
-        <input type="date" class="form-control" name="fecha" id="fechaPartido" required>
-        <div class="form-text text-danger" id="errorFecha" style="display: none;">
-          Solo se pueden seleccionar días miércoles.
-        </div>
-      </div>
-
-      <div class="row">
-        <!-- EQUIPO A -->
-        <div class="col-md-6">
-          <h4>Equipo A</h4>
-          <% for (let i = 0; i < 5; i++) { %>
-            <div class="mb-2">
-              <select class="form-select jugador-select" name="equipoA[]" required>
-                <option value="">Seleccionar jugador</option>
-                <% jugadores.forEach(j => { %>
-                  <option value="<%= j.nombre %>"><%= j.nombre %></option>
-                <% }) %>
-                <option value="__nuevo__">➕ Agregar nuevo jugador</option>
-              </select>
-            </div>
-          <% } %>
+      <form action="/registrar" method="POST">
+        <!-- FECHA -->
+        <div class="mb-4">
+          <h4 class="fs-6 fs-md-4">Fecha del partido (miércoles)</h4>
+          <input type="date" class="form-control form-control-sm" name="fecha" id="fechaPartido" required>
+          <div class="form-text text-danger" id="errorFecha" style="display: none;">
+            Solo se pueden seleccionar días miércoles.
+          </div>
         </div>
 
-        <!-- EQUIPO B -->
-        <div class="col-md-6">
-          <h4>Equipo B</h4>
-          <% for (let i = 0; i < 5; i++) { %>
-            <div class="mb-2">
-              <select class="form-select jugador-select" name="equipoB[]" required>
-                <option value="">Seleccionar jugador</option>
-                <% jugadores.forEach(j => { %>
-                  <option value="<%= j.nombre %>"><%= j.nombre %></option>
-                <% }) %>
-                <option value="__nuevo__">➕ Agregar nuevo jugador</option>
-              </select>
-            </div>
-          <% } %>
-        </div>
-      </div>
+        <div class="row">
+          <!-- EQUIPO A -->
+          <div class="col-md-6">
+            <h4 class="fs-6 fs-md-4">Equipo A</h4>
+            <% for (let i = 0; i < 5; i++) { %>
+              <div class="mb-2">
+                <select class="form-select form-select-sm jugador-select" name="equipoA[]" required>
+                  <option value="">Seleccionar jugador</option>
+                  <% jugadores.forEach(j => { %>
+                    <option value="<%= j.nombre %>"><%= j.nombre %></option>
+                  <% }) %>
+                  <option value="__nuevo__">➕ Agregar nuevo jugador</option>
+                </select>
+              </div>
+            <% } %>
+          </div>
 
-      <!-- GOL DE PECHERA -->
-      <div class="mt-4">
-        <h4>Gol de pechera</h4>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="pechera" value="A" required>
-          <label class="form-check-label">Equipo A</label>
+          <!-- EQUIPO B -->
+          <div class="col-md-6">
+            <h4 class="fs-6 fs-md-4">Equipo B</h4>
+            <% for (let i = 0; i < 5; i++) { %>
+              <div class="mb-2">
+                <select class="form-select form-select-sm jugador-select" name="equipoB[]" required>
+                  <option value="">Seleccionar jugador</option>
+                  <% jugadores.forEach(j => { %>
+                    <option value="<%= j.nombre %>"><%= j.nombre %></option>
+                  <% }) %>
+                  <option value="__nuevo__">➕ Agregar nuevo jugador</option>
+                </select>
+              </div>
+            <% } %>
+          </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="pechera" value="B" required>
-          <label class="form-check-label">Equipo B</label>
-        </div>
-      </div>
 
-      <!-- GANADOR -->
-      <div class="mt-4">
-        <h4>Resultado del partido</h4>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="ganador" value="A" required>
-          <label class="form-check-label">Ganó equipo A</label>
+        <!-- GOL DE PECHERA -->
+        <div class="mt-4">
+          <h4 class="fs-6 fs-md-4">Gol de pechera</h4>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="pechera" value="A" required>
+            <label class="form-check-label">Equipo A</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="pechera" value="B" required>
+            <label class="form-check-label">Equipo B</label>
+          </div>
         </div>
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="ganador" value="B" required>
-          <label class="form-check-label">Ganó equipo B</label>
+
+        <!-- GANADOR -->
+        <div class="mt-4">
+          <h4 class="fs-6 fs-md-4">Resultado del partido</h4>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="ganador" value="A" required>
+            <label class="form-check-label">Ganó equipo A</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="ganador" value="B" required>
+            <label class="form-check-label">Ganó equipo B</label>
+          </div>
         </div>
-      </div>
 
-      <!-- BAJAS -->
-      <div class="mt-4">
-        <h4>Jugadores que se bajaron</h4>
-        <div id="bajasContainer" class="mb-2"></div>
-        <div class="input-group">
-          <select id="bajaSelect" class="form-select">
-            <option value="">Seleccionar jugador</option>
-            <% jugadores.forEach(j => { %>
-              <option value="<%= j.nombre %>"><%= j.nombre %></option>
-            <% }) %>
-          </select>
-          <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('baja')">+</button>
+        <!-- BAJAS -->
+        <div class="mt-4">
+          <h4 class="fs-6 fs-md-4">Jugadores que se bajaron</h4>
+          <div id="bajasContainer" class="mb-2"></div>
+          <div class="input-group">
+            <select id="bajaSelect" class="form-select form-select-sm">
+              <option value="">Seleccionar jugador</option>
+              <% jugadores.forEach(j => { %>
+                <option value="<%= j.nombre %>"><%= j.nombre %></option>
+              <% }) %>
+            </select>
+            <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('baja')">+</button>
+          </div>
+          <input type="hidden" name="bajas" id="bajasInput">
         </div>
-        <input type="hidden" name="bajas" id="bajasInput">
-      </div>
 
-      <!-- SUPLENTES -->
-      <div class="mt-4">
-        <h4>Suplentes que ingresaron</h4>
-        <div id="suplentesContainer" class="mb-2"></div>
-        <div class="input-group">
-          <select id="suplenteSelect" class="form-select">
-            <option value="">Seleccionar jugador</option>
-            <% jugadores.forEach(j => { %>
-              <option value="<%= j.nombre %>"><%= j.nombre %></option>
-            <% }) %>
-          </select>
-          <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('suplente')">+</button>
+        <!-- SUPLENTES -->
+        <div class="mt-4">
+          <h4 class="fs-6 fs-md-4">Suplentes que ingresaron</h4>
+          <div id="suplentesContainer" class="mb-2"></div>
+          <div class="input-group">
+            <select id="suplenteSelect" class="form-select form-select-sm">
+              <option value="">Seleccionar jugador</option>
+              <% jugadores.forEach(j => { %>
+                <option value="<%= j.nombre %>"><%= j.nombre %></option>
+              <% }) %>
+            </select>
+            <button type="button" class="btn btn-outline-secondary" onclick="agregarJugador('suplente')">+</button>
+          </div>
+          <input type="hidden" name="suplentes" id="suplentesInput">
         </div>
-        <input type="hidden" name="suplentes" id="suplentesInput">
-      </div>
 
-      <!-- NUEVO JUGADOR -->
-      <input type="hidden" name="nuevoJugador" id="nuevoJugadorHidden">
+        <input type="hidden" name="nuevoJugador" id="nuevoJugadorHidden">
 
-      <div class="mt-5 mb-5 text-center">
-        <button type="submit" class="btn btn-primary">Registrar Partido</button>
-      </div>
-    </form>
+        <!-- BOTÓN SUBMIT -->
+        <div class="mt-5 mb-5 text-center">
+          <button type="submit" class="btn btn-primary btn-lg w-100 w-md-auto">Registrar Partido</button>
+        </div>
+      </form>
+    </div>
   </main>
 
-  <!-- MODAL nuevo jugador -->
+  <!-- MODAL NUEVO JUGADOR -->
   <div class="modal fade" id="modalNuevoJugador" tabindex="-1" aria-labelledby="modalNuevoJugadorLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content bg-dark text-white">
@@ -142,20 +145,18 @@
     </div>
   </div>
 
-  <!-- SCRIPTS -->
   <!-- DARK MODE -->
   <script>
-  const root = document.documentElement;
-  const modoGuardado = localStorage.getItem('modo');
-
-  if (modoGuardado === 'claro') {
-    root.classList.remove('dark-mode');
-  } else {
-    root.classList.add('dark-mode');
-  }
+    const root = document.documentElement;
+    const modoGuardado = localStorage.getItem('modo');
+    if (modoGuardado === 'claro') {
+      root.classList.remove('dark-mode');
+    } else {
+      root.classList.add('dark-mode');
+    }
   </script>
 
-  <!-- VALIDAR FECHA (solo miércoles) -->
+  <!-- VALIDACIÓN FECHA -->
   <script>
     const inputFecha = document.getElementById('fechaPartido');
     const errorFecha = document.getElementById('errorFecha');
@@ -164,13 +165,8 @@
     function esMiercoles(fechaStr) {
       const partes = fechaStr.split("-");
       if (partes.length !== 3) return false;
-
-      const anio = parseInt(partes[0], 10);
-      const mes = parseInt(partes[1], 10) - 1; // JavaScript usa 0-11 para los meses
-      const dia = parseInt(partes[2], 10);
-
-      const fecha = new Date(anio, mes, dia);
-      return fecha.getDay() === 3; // 3 = miércoles
+      const fecha = new Date(+partes[0], partes[1] - 1, +partes[2]);
+      return fecha.getDay() === 3;
     }
 
     inputFecha.addEventListener('change', () => {
@@ -193,8 +189,8 @@
     });
   </script>
 
+  <!-- JUGADORES ÚNICOS Y MODAL -->
   <script>
-    // Validación jugadores únicos
     const selects = document.querySelectorAll('.jugador-select');
     function jugadoresElegidos(exclude = null) {
       const nombres = [];
@@ -204,6 +200,7 @@
       return nombres;
     }
 
+    let selectActivo = null;
     selects.forEach(select => {
       select.addEventListener('change', e => {
         if (e.target.value === '__nuevo__') {
@@ -219,8 +216,6 @@
       });
     });
 
-    // Modal nuevo jugador
-    let selectActivo = null;
     document.getElementById('btnConfirmarNuevoJugador').addEventListener('click', () => {
       const nuevoNombre = document.getElementById('inputNuevoJugador').value.trim();
       if (!nuevoNombre || !selectActivo) return;
@@ -238,8 +233,10 @@
       document.getElementById('nuevoJugadorHidden').value = nuevoNombre;
       bootstrap.Modal.getInstance(document.getElementById('modalNuevoJugador')).hide();
     });
+  </script>
 
-    // Bajas y suplentes
+  <!-- BAJAS Y SUPLENTES -->
+  <script>
     const listas = { baja: [], suplente: [] };
     function agregarJugador(tipo) {
       const select = document.getElementById(tipo + 'Select');

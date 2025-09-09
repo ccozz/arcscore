@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title><%= reglas.titulo %></title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -10,67 +11,67 @@
 <body>
   <%- include('partials/navbar') %>
 
-  <main class="container mt-4">
-    <h1 class="text-center mb-4" id="titulo-reglamento">📜 Reglamento Oficial 📜</h1>
+  <main class="container py-4">
+    <h1 class="text-center mb-3" id="titulo-reglamento">📜 Reglamento Oficial 📜</h1>
     <h2 class="text-center mb-4">🐭 Torneo Aníbal Rata Coluda 🐭</h2>
 
     <div class="accordion" id="reglamentoAccordion">
 
-        <% const articulos = [
+      <% const articulos = [
         {
-            titulo: "Artículo 1 — Formato de Competencia",
-            contenido: [
+          titulo: "Artículo 1 — Formato de Competencia",
+          contenido: [
             "El torneo se desarrollará bajo la modalidad todos contra todos.",
             "Los equipos serán armados por sorteo, garantizando imparcialidad y variedad."
-            ]
+          ]
         },
         {
-            titulo: "Artículo 2 — Sistema de Puntaje",
-            contenido: [
+          titulo: "Artículo 2 — Sistema de Puntaje",
+          contenido: [
             "Victoria: 3 puntos",
             "Empate: 1 punto",
             "Derrota: 0 puntos",
             "Gol de pechera: 1 punto",
             "Bajarse el día del partido: -3 puntos",
             "Suplente que ingresa a salvar el partido: 1 punto"
-            ]
+          ]
         },
         {
-            titulo: "Artículo 3 — Criterios de Clasificación",
-            contenido: [
+          titulo: "Artículo 3 — Criterios de Clasificación",
+          contenido: [
             "La tabla se ordenará por puntos totales acumulados.",
             "En caso de empate de puntos entre dos o más jugadores se decidirá el vencedor por:",
             "1. Menor cantidad de abandonos registrados",
             "2. Mayor cantidad de partidos ganados",
             "3. Piedra, papel o tijera al mejor de tres",
             "4. Duelo a muerte con cuchillos"
-            ]
+          ]
         },
         {
-            titulo: "Artículo 4 — Disposiciones Finales",
-            contenido: [
+          titulo: "Artículo 4 — Disposiciones Finales",
+          contenido: [
             "Este reglamento podrá ser ajustado solo por consenso del grupo bajo votación con mayoría absoluta, o si lo decide Cristian.",
             "Toda modificación deberá preservar el espíritu competitivo, la camaradería del torneo y el respeto entre participantes, salvo aquellos participantes que se hubieren sometido a un alisado definitivo de raba (léase: jugador de pádel)."
-            ]
+          ]
         }
-        ]; %>
+      ]; %>
 
-        <% articulos.forEach((articulo, index) => { %>
+      <% articulos.forEach((articulo, index) => { %>
         <div class="accordion-item reglamento-item">
-            <h2 class="accordion-header" id="heading<%= index %>">
+          <h2 class="accordion-header" id="heading<%= index %>">
             <button class="accordion-button collapsed reglamento-btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
-                <%= articulo.titulo %>
+              <%= articulo.titulo %>
             </button>
-            </h2>
-            <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#reglamentoAccordion">
+          </h2>
+          <div id="collapse<%= index %>" class="accordion-collapse collapse" aria-labelledby="heading<%= index %>" data-bs-parent="#reglamentoAccordion">
             <div class="accordion-body reglamento-body">
-                <% articulo.contenido.forEach((linea) => { %>
-                <p><%= linea %></p>
-                <% }) %>
+              <% articulo.contenido.forEach(linea => { %>
+                <p class="mb-2"><%= linea %></p>
+              <% }) %>
             </div>
-            </div>
+          </div>
         </div>
-        <% }) %>
+      <% }) %>
 
     </div>
   </main>
@@ -79,18 +80,23 @@
     const root = document.documentElement;
     const modoGuardado = localStorage.getItem('modo');
 
+    const titulo = document.querySelector('#titulo-reglamento');
+    const items = document.querySelectorAll('.reglamento-item');
+    const botones = document.querySelectorAll('.reglamento-btn');
+    const cuerpos = document.querySelectorAll('.reglamento-body');
+
     if (modoGuardado === 'claro') {
-        root.classList.remove('dark-mode');
-        document.querySelector('#titulo-reglamento').classList.add('text-dark');
-        document.querySelectorAll('.reglamento-item').forEach(el => el.classList.remove('bg-dark', 'text-light'));
-        document.querySelectorAll('.reglamento-btn').forEach(el => el.classList.remove('bg-dark', 'text-light'));
-        document.querySelectorAll('.reglamento-body').forEach(el => el.classList.remove('text-light'));
+      root.classList.remove('dark-mode');
+      titulo.classList.add('text-dark');
+      items.forEach(el => el.classList.remove('bg-dark', 'text-light'));
+      botones.forEach(el => el.classList.remove('bg-dark', 'text-light'));
+      cuerpos.forEach(el => el.classList.remove('text-light'));
     } else {
-        root.classList.add('dark-mode');
-        document.querySelector('#titulo-reglamento').classList.add('text-light');
-        document.querySelectorAll('.reglamento-item').forEach(el => el.classList.add('bg-dark', 'text-light'));
-        document.querySelectorAll('.reglamento-btn').forEach(el => el.classList.add('bg-dark', 'text-light'));
-        document.querySelectorAll('.reglamento-body').forEach(el => el.classList.add('text-light'));
+      root.classList.add('dark-mode');
+      titulo.classList.add('text-light');
+      items.forEach(el => el.classList.add('bg-dark', 'text-light'));
+      botones.forEach(el => el.classList.add('bg-dark', 'text-light'));
+      cuerpos.forEach(el => el.classList.add('text-light'));
     }
   </script>
 
